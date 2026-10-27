@@ -10,8 +10,14 @@ export default function Auth() {
     const navigate = useNavigate();
 
     function submitForm(data) {
-     signUp(data.username, data.email, data.password);
-     navigate("/profile");
+     if(mode === "login") {
+      login(data.username, data.email, data.password);
+      navigate("/profile");
+     }
+     if(mode !== "login") {
+      signUp(data.username, data.email, data.password);
+      navigate("/profile");
+     }
     }
 
 
