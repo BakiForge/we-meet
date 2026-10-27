@@ -30,7 +30,7 @@ export default function AuthProvider({ children }) {
             return { success: false, error: "User did not exists"};
         }
         localStorage.setItem("currentUserEmail", email);
-        setUser({ email: email });
+        setUser({ username: username, email: email, password: password });
      }
 
      function logout() {
