@@ -7,29 +7,32 @@ export default function Auth() {
     const [mode, setMode] = useState("login");
     const {register, handleSubmit, formState: {errors}} = useForm();
     const {user, signUp, login} = useContext(AuthContext);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     function submitForm(data) {
+     setError(null);
+     let result;
      if(mode === "login") {
-      login(data.username, data.email, data.password);
-      navigate("/profile");
+      result = login(data.username, data.password, data.email);
+     } else {
+      result = signUp(data.username, data.password, data.email);
      }
-     if(mode !== "login") {
-      signUp(data.username, data.email, data.password);
+     if(result.success) {
       navigate("/profile");
+     } else {
+      setError(result.error);
      }
     }
 
 
     return (
     <div>
-       <button onClick={() => login()}>Login</button>
   <main className="auth">
     <div className="auth__glow" aria-hidden="true"></div>
 
     <div className="container auth__inner">
       <section className="auth__card" aria-labelledby="auth-title">
-       
 
         <h1 className="auth__title" id="auth-title">Welcome to <span className="accent">weMeet</span></h1>
     <p className="auth__text">{mode === "login" ? "Login with your details - it takes about 20 seconds" :
@@ -113,6 +116,12 @@ export default function Auth() {
             </a>
             </p>
           </div>
+
+          {error && (
+            <p className="auth-alert is-hidden" id="auth-error" role="alert" aria-live="polite">
+              {error}
+            </p>
+          )}
 
           <button className="btn btn--primary btn--block" type="submit">
             {mode === "login" ? "Login" : "Sign Up"}
