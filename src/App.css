@@ -1714,3 +1714,91 @@ p {
     align-items: flex-start;
   }
 }
+/* ---------- Log out ---------- */
+
+.logout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--cream);
+}
+
+.logout__text {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logout__text h2 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.logout__text p {
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.logout__text strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.logout__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: var(--white);
+  border: 1px solid var(--orange-line);
+  color: var(--orange-ink);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .card {
+    padding: 28px;
+  }
+
+  .card--wide {
+    grid-column: 1 / -1;
+  }
+
+  .chat-cta {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .nav {
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .logo__text {
+    display: none;
+  }
+
+  .chat-cta__text {
+    align-items: flex-start;
+  }
+
+  .logout .btn {
+    width: 100%;
+  }
+}

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 export default function Auth() {
     const [mode, setMode] = useState("login");
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const {user, signUp, login} = useContext(AuthContext);
+    const { signUp, login } = useContext(AuthContext);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -14,9 +14,9 @@ export default function Auth() {
      setError(null);
      let result;
      if(mode === "login") {
-      result = login(data.username, data.password, data.email);
+      result = login(data.username, data.email, data.password);
      } else {
-      result = signUp(data.username, data.password, data.email);
+      result = signUp(data.username, data.email, data.password);
      }
      if(result.success) {
       navigate("/profile");
