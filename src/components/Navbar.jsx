@@ -1,8 +1,13 @@
+import { useContext } from 'react';
 import { Link } from "react-router";
+import { AuthContext } from "../context/AuthContext";
 
 // TODO: FIX THE NAVBAR LINKS
 
 export function Navbar() {
+
+    const {user, logout} = useContext(AuthContext);
+
     return (
     <div>
         <header className="nav">
@@ -24,7 +29,12 @@ export function Navbar() {
             <a href="#about">About</a>
         </nav>
 
-        <Link href="#login" className="btn btn--primary btn--sm nav__cta" to="/auth">Login</Link>
+        {user.username && user.email && user.password
+        ? <Link className="btn btn--primary btn--sm nav__cta" to="/auth" onClick={() => logout()}>
+            Logout
+          </Link>
+        : <Link className="btn btn--primary btn--sm nav__cta" to="/auth">Login</Link>
+        }
         </div>
         </header>
     </div>

@@ -21,6 +21,7 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("currentPassword", password);
         localStorage.setItem("users", JSON.stringify(users));
         setUser({ username: username, email: email, password: password});
+        return { success: true};
      } 
 
      function login( username, email, password) {
@@ -31,6 +32,7 @@ export default function AuthProvider({ children }) {
         }
         localStorage.setItem("currentUserEmail", email);
         setUser({ username: username, email: email, password: password });
+        return { success: true};
      }
 
      function logout() {
