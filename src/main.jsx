@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import Auth from './pages/Auth.jsx'
 import App from './App.jsx'
+import GlobalChat from './pages/GlobalChat.jsx'
 import AuthProvider from './context/AuthContext.jsx'
 import MessageProvider from './context/MessagesContext.jsx'
 import { Navbar } from './components/Navbar.jsx'
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/global-chat" element={<GlobalChat />} />
       </Routes>
       </MessageProvider>
     </AuthProvider>
