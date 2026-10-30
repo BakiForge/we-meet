@@ -1,15 +1,30 @@
 import { useContext } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../context/AuthContext";
+import { MessageContext } from "../context/MessagesContext";
+import { useForm } from "react-hook-form";
 
 export default function Profile() {
 
     const {user, logout} = useContext(AuthContext);
+    const {message, addPost} = useContext(MessageContext);
+    const {register, handleSubmit} = useForm();
+
+    function submitForm(data) {
+      if(!user.username) {
+        alert("Sign in to start chatting"); // TODO: Show error in the form
+        return;
+      }
+       if(data.title === '' && data.content === '') {
+        alert("You can't post empty post");
+        return;
+      }
+      addPost(user.username, data.title, data.content);
+    }
 
      return (
      <div>
     <main className="container main">
-
         <section className="welcome">
         <h1>{user.username ? "Welcome, " : "Sign In to see your account data"}<span>{user.username}</span></h1>
         <p className="welcome__sub">Manage your account, share what you're up to, and find your next plan.</p>
@@ -23,7 +38,7 @@ export default function Profile() {
             <p>Update your email and password.</p>
             </div>
 
-            <form className="form" action="#" method="post" onsubmit="return false;">
+            <form className="htmlForm" action="#" method="post">
             <label className="field">
                 <span className="field__label">Email</span>
                 <input type="email" name="email" value={user.email} placeholder="you@example.com" />
@@ -33,8 +48,8 @@ export default function Profile() {
                 <span className="field__label">Password</span>
                 <div className="pw">
                 <input type="checkbox" id="show-password" className="sr-only" />
-                <input type="text" name="password" className="pw__input" value={user.password} autocomplete="new-password" aria-label="Password" placeholder="••••••••" />
-                <label for="show-password" className="pw__eye"></label>
+                <input type="text" name="password" className="pw__input" value={user.password} autoComplete="new-password" aria-label="Password" placeholder="••••••••" />
+                <label htmlFor="show-password" className="pw__eye"></label>
                 </div>
             </div>
 
@@ -51,18 +66,21 @@ export default function Profile() {
             <p>Share an update with the global chat.</p>
             </div>
 
-            <form className="form" action="#" method="post" onsubmit="return false;">
+            <form className="htmlForm" onSubmit={handleSubmit(submitForm)}>
             <label className="field">
                 <span className="field__label">Title</span>
-                <input type="text" name="title" placeholder="e.g. Coffee walk this Saturday?" />
+                <input type="text" id="title" placeholder="e.g. Coffee walk this Saturday?"
+                {...register("title")} 
+                />
             </label>
 
             <label className="field">
                 <span className="field__label">Message</span>
-                <textarea name="body" rows="4" placeholder="What's on your mind?"></textarea>
+                <textarea id="content" rows="4" placeholder="What's on your mind?" {...register("content")}
+                ></textarea>
             </label>
 
-            <div className="form__actions">
+            <div className="htmlForm__actions">
                 <button type="submit" className="btn btn--primary">Add post</button>
             </div>
             </form>
@@ -75,36 +93,22 @@ export default function Profile() {
             </div>
 
             <ul className="posts">
-            <li className="post">
+            
+            {message ? message.map((userMessage) => {
+                return (
+                <li className="post">
                 <div className="post__meta">
-                <span className="post__avatar">AL</span>
+                <span className="post__avatar"></span>
                 <div>
-                    <strong>Coffee walk this Saturday?</strong>
-                    <span className="post__time">2 days ago · 12 replies</span>
+                    <strong>{userMessage.title}</strong>
+                    <span className="post__time">{userMessage.sender}</span>
                 </div>
                 </div>
-                <p>Looking for people to join a relaxed 1-hour walk and coffee around the river. All levels welcome.</p>
-            </li>
-            <li className="post">
-                <div className="post__meta">
-                <span className="post__avatar">AL</span>
-                <div>
-                    <strong>Study night at the library</strong>
-                    <span className="post__time">1 week ago · 7 replies</span>
-                </div>
-                </div>
-                <p>Quiet corner, two hours, no phones. Bring your own work and let's keep each other focused.</p>
-            </li>
-            <li className="post">
-                <div className="post__meta">
-                <span className="post__avatar">AL</span>
-                <div>
-                    <strong>Looking for a board game group</strong>
-                    <span className="post__time">2 weeks ago · 3 replies</span>
-                </div>
-                </div>
-                <p>Anyone up for a monthly game night? Strategy games preferred, snacks provided.</p>
-            </li>
+                <p>{userMessage.content}</p>
+               </li>
+            )})
+            : <p>There are no any posts in the history</p> 
+            }
             </ul>
         </section>
 
