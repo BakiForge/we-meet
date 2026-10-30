@@ -16,7 +16,7 @@ export default function Profile() {
         alert("Sign in to start chatting"); // TODO: Show error in the form
         return;
       }
-       if(data.title === '' && data.content === '') {
+       if(data.title === '' || data.content === '') {
         alert("You can't post empty post");
         return;
       }
@@ -36,7 +36,7 @@ export default function Profile() {
         <section className="card">
             <div className="card__head">
             <h2>Account</h2>
-            <p>Update your email and password.</p>
+            <p>Look for your email and password.</p>
             </div>
 
             <form className="htmlForm" action="#" method="post">
@@ -54,10 +54,6 @@ export default function Profile() {
                 </div>
             </div>
 
-            <div className="form__actions">
-                <button type="submit" className="btn btn--primary">Save changes</button>
-                <button type="reset" className="btn btn--ghost">Cancel</button>
-            </div>
             </form>
         </section>
 
