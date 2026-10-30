@@ -83,22 +83,6 @@ export default function Profile() {
             </form>
         </section>
 
-        <section className="card card--wide">
-            <div className="card__head">
-            <h2>Your previous posts</h2>
-            <p>Everything you've shared recently.</p>
-            </div>
-
-            <ul className="posts">
-            
-            {message && user.username ? message.map((userMessage) => {
-                return (
-                <ChatMessage userMessage={userMessage} />
-            )})
-            : <p>There are no any posts in the history</p> 
-            }
-            </ul>
-        </section>
 
         <Link to="/global-chat" className="chat-cta card card--wide">
             <div className="chat-cta__text">
