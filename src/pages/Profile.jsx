@@ -95,7 +95,7 @@ export default function Profile() {
 
             <ul className="posts">
             
-            {message ? message.map((userMessage) => {
+            {message && user.username ? message.map((userMessage) => {
                 return (
                 <ChatMessage userMessage={userMessage} />
             )})
@@ -104,7 +104,7 @@ export default function Profile() {
             </ul>
         </section>
 
-        <a href="messages.html" className="chat-cta card card--wide">
+        <Link to="/global-chat" className="chat-cta card card--wide">
             <div className="chat-cta__text">
             <span className="chat-cta__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
@@ -115,7 +115,7 @@ export default function Profile() {
             </div>
             </div>
             <span className="chat-cta__arrow" aria-hidden="true">→</span>
-        </a>
+        </Link>
         
         <section className="card card--wide logout">
             <div className="logout__text">
@@ -123,14 +123,21 @@ export default function Profile() {
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
             </span>
             <div>
-                <h2>Log out</h2>
-                <p>Signed in as <strong>alex@example.com</strong>. You can sign back in any time.</p>
+                <h2>{user.username ? "Logout" : "You aren't signed in"}</h2>
+                {user.username ?
+                <p>Signed in as <strong>{user.email}</strong>. You can sign back any time. </p>
+                : <p>Sign in to unlock more features.</p>
+                }
             </div>
             </div>
-            <Link to="/auth" className="btn btn--danger" onClick={() => logout()}>Log out</Link>
+            {user.username && (
+              <Link to="/auth" className="btn btn--danger" onClick={() => logout()}>Log out</Link>
+            )}
+            
         </section>
       </div>
     </main>
  </div>
-     );
+
+);
 }
