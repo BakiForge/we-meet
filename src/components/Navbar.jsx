@@ -24,7 +24,7 @@ export function Navbar() {
 
         <nav className="nav__links" aria-label="Main navigation">
             <Link href="#home" className="is-active" to="/" >Home</Link>
-            <a href="#why">Why weMeet</a>
+            <Link to="/profile">Profile</Link>
             <a href="#community">Community</a>
             <a href="#about">About</a>
         </nav>
