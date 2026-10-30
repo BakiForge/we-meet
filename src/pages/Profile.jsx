@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import { MessageContext } from "../context/MessagesContext";
 import { useForm } from "react-hook-form";
+import { ChatMessage } from "../components/ChatMessage";
 
 export default function Profile() {
 
@@ -96,16 +97,7 @@ export default function Profile() {
             
             {message ? message.map((userMessage) => {
                 return (
-                <li className="post">
-                <div className="post__meta">
-                <span className="post__avatar"></span>
-                <div>
-                    <strong>{userMessage.title}</strong>
-                    <span className="post__time">{userMessage.sender}</span>
-                </div>
-                </div>
-                <p>{userMessage.content}</p>
-               </li>
+                <ChatMessage userMessage={userMessage} />
             )})
             : <p>There are no any posts in the history</p> 
             }
